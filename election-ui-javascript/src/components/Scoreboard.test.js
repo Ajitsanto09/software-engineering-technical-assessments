@@ -26,6 +26,27 @@ test('renders Results', async () => {
   });
 });
 
+test('shows when counting is complete', async () => {
+  dataFetcher.mockImplementationOnce(() => {
+    return Promise.resolve({
+      isComplete: true,
+      results: [
+        {
+          'party': 'Tiger Party',
+          'candidateName': 'Count Binface',
+          'votes': '10000'
+        }
+      ]
+    })
+  });
+
+  render(<Scoreboard />);
+
+  await waitFor(() => {
+    expect(screen.getByRole('status')).toHaveTextContent(/Counting complete/i);
+  });
+});
+
 test('renders error state', async () => {
   dataFetcher.mockImplementationOnce(() => {
     throw new Error();
