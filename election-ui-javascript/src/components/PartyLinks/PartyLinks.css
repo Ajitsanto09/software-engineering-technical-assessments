@@ -1,3 +1,28 @@
 .Party-links {
-  color: red;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  list-style: none;
+  margin: 2rem 0;
+  padding: 0;
+}
+
+.Party-link {
+  border: 3px solid #bb1919;
+  padding: 1rem;
+  transition: transform 0.25s ease;
+}
+
+.Party-link a {
+  color: black;
+}
+
+.Party-link:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 700px) {
+  .Party-links {
+    grid-template-columns: 1fr;
+  }
 }
