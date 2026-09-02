@@ -1,5 +1,5 @@
 import fetchResults from '../dataFetcher';
-import { fetchResultData } from '../fakeAPI';
+import { fetchResultData, fetchCandidateData } from '../fakeAPI';
 
 jest.mock('../fakeAPI');
 
@@ -16,6 +16,13 @@ const mockFakeApi = () => {
       ]
     })
   });
+
+  fetchCandidateData.mockImplementationOnce(() => [
+    {
+      id: 2,
+      name: 'Lord Buckethead'
+    }
+  ]);
 }
 
 test('returns an Object', async () => {
@@ -28,4 +35,11 @@ test('response contains a result array', async () => {
   mockFakeApi();
   const resultData = await fetchResults();
   expect(Array.isArray(resultData.results)).toBe(true);
+});
+
+test('response contains candidate names', async () => {
+  mockFakeApi();
+  const resultData = await fetchResults();
+
+  expect(resultData.results[0].candidateName).toBe('Lord Buckethead');
 });
